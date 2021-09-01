@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %} {{ data.title }} {% endblock %}
+
+
+{% block content %}
+
+
+<div class="d-flex justify-content-center row">
+  <div class="col-md-12">
+    {% for oferta in data.ofertas %}
+      <div class="row p-2 bg-white border rounded mt-2">
+          <div class="col-md-2 mt-1">
+            <img class="img-fluid img-responsive rounded product-image" src="{{ oferta.thunbnail }}">
+          </div>
+          <div class="col-md-7 mt-1">
+              <h5><a href="{{ url_for('product', id=oferta.id) }}">{{oferta.name}}</a></h5>
+              <div class="d-flex flex-row">
+                  <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                  <span> {{ oferta.stock }} </span>
+              </div>
+              <div class="mt-1 mb-1 spec-1">                
+                {{oferta.list}}
+              </div>
+              <div class="mt-1 mb-1 spec-1">
+                {{oferta.category}}
+              </div>              
+          </div>
+          <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+              <div class="d-flex flex-row align-items-center">
+                  <h4 class="mr-1">{{ "${:,.2f}".format(oferta.price) }}</h4>                  
+                  <span class="strike-text">{{ "${:,.2f}".format(oferta.antes.price) }} </span>
+              </div>              
+              <h6 class="text-success">Dif: {{ "${:,.2f}".format(oferta.diff) }}</h6>
+              <div class="d-flex flex-column mt-4">
+                <a class="btn btn-primary" href="{{ data.url_base + oferta.link }}" role="button" target="_blank" rel="noopener noreferrer">Ver en Bercomat</a>                           
+                
+            </div>
+          </div>
+      </div>  
+      {% endfor %}       
+  </div>
+</div>
+
+
+
+
+{% endblock %}
+
