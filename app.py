@@ -21,7 +21,6 @@ def home():
     except pymongo.errors.ServerSelectionTimeoutError as e:
         return "Error en Base de Datos %s" % e
 
-
 @app.route('/product/<id>')
 def product(id):
     try:
@@ -46,6 +45,10 @@ def product(id):
         return render_template('product.html',data=data)
     except pymongo.errors.ServerSelectionTimeoutError as e:
         return "Error en Base de Datos %s" % e
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 def query_string():
     print(request)
