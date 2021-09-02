@@ -24,14 +24,15 @@ def home():
 @app.route('/product/<id>')
 def product(id):
     try:
+        cant_dias = 15
         producto = mongo.db.productos.find_one({"id": id})
-        historial = mongo.db.productos.find({"id":id},{"price":1, "created":1}).sort("created", -1).limit(10)
+        historial = mongo.db.productos.find({"id":id},{"price":1, "created":1}).sort("created", -1).limit(cant_dias)
 
         data_chart = []
         labels = []
         for h in historial:        
             data_chart.append(h['price'])
-            labels.append(h['created'].strftime('%Y-%m-%d'))
+            labels.append(h['created'].strftime('%d/%m/%y'))
         
         data_chart.reverse()
         labels.reverse()
@@ -40,7 +41,9 @@ def product(id):
             'title': 'Product',
             'producto': producto,
             'labels': labels,
-            'data_chart': data_chart
+            'data_chart': data_chart,
+            'url_base': url_base,
+            'cant_dias': cant_dias
         }
         return render_template('product.html',data=data)
     except pymongo.errors.ServerSelectionTimeoutError as e:

@@ -3,19 +3,55 @@
 {% block title %} {{ data.title }} {% endblock %}
 
 {% block content %}
-<!-- 
-<ul>
-</ul>
 
--->
+
+
 <!-- JS CHARTJS.ORG-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 
-<h3>{{data.producto.name}}</h3>
-<div>
-    <span>Id:</span> {{data.producto.id}}
-</div>
-<canvas id="myChart" ></canvas>
+{% set oferta = data.producto %}
+
+
+<div class="d-flex justify-content-center row">
+    <div class="col-md-12">      
+        <div class="row p-2 bg-white border rounded mt-2">
+            <div class="col-md-2 mt-1">
+              <img class="img-fluid img-responsive rounded product-image" src="{{ oferta.thunbnail }}">
+            </div>
+            <div class="col-md-7 mt-1">
+                <h5>{{oferta.name}}</h5>
+                
+                <div class="d-flex flex-row">                  
+                  <span> Id: {{ oferta.id }} </span> &nbsp;               
+                  <span class="badge bg-info text-dark">{{ oferta.stock }}</span>
+                  
+                </div>
+                <div class="mt-1 mb-1 spec-1">                
+                  {{oferta.list}}
+                </div>
+                
+                <div class="mt-1 mb-1 spec-1">
+                  {{oferta.category}}
+                </div>              
+            </div>
+            <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                <div class="d-flex flex-row align-items-center">
+                    <h4 class="mr-1">{{ "${:,.2f}".format(oferta.price) }}</h4>                  
+                </div>
+                
+                
+                <div class="d-flex flex-column mt-4">
+                  
+                  
+                              
+                 <a class="btn btn-primary btn-sm mt-1" href="{{ data.url_base + oferta.link }}" role="button" target="_blank" rel="noopener noreferrer">Ver en Bercomat</a>                    
+              </div>
+            </div>
+        </div>      
+    </div>
+  </div>
+  
+<canvas id="myChart" class="rounded "></canvas>
 
 
 <script>
@@ -25,7 +61,7 @@ const labels = {{ data.labels | tojson }};
   const data = {
     labels: labels,
     datasets: [{
-      label: 'Precios a 10 dias ',
+      label: 'Precios a {{ data.cant_dias }} días ',
       backgroundColor: 'rgba(54, 162, 235, 0.2)',
       borderColor:  'rgba(54, 162, 235, 1)',
       data: {{ data.data_chart | tojson }}

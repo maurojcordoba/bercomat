@@ -11,9 +11,8 @@ client = MongoClient(MONGO_URI)
 db = client['bercomat']
 col_productos = db['productos']
 
-
 # Abro archivo de urls
-f = open("data.txt", "rt")
+f = open("src/data.txt", "rt")
 lista_urls = f.readlines()
 f.close()
 

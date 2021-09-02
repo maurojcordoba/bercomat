@@ -14,14 +14,17 @@
             <img class="img-fluid img-responsive rounded product-image" src="{{ oferta.thunbnail }}">
           </div>
           <div class="col-md-7 mt-1">
-              <h5><a href="{{ url_for('product', id=oferta.id) }}">{{oferta.name}}</a></h5>
-              <div class="d-flex flex-row">
-                  <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
-                  <span> {{ oferta.stock }} </span>
+              <h5>{{oferta.name}}</h5>
+              
+              <div class="d-flex flex-row">                  
+                <span> Id: {{ oferta.id }} </span> &nbsp;               
+                <span class="badge bg-info text-dark">{{ oferta.stock }}</span>
+                
               </div>
               <div class="mt-1 mb-1 spec-1">                
                 {{oferta.list}}
               </div>
+              
               <div class="mt-1 mb-1 spec-1">
                 {{oferta.category}}
               </div>              
@@ -29,12 +32,16 @@
           <div class="align-items-center align-content-center col-md-3 border-left mt-1">
               <div class="d-flex flex-row align-items-center">
                   <h4 class="mr-1">{{ "${:,.2f}".format(oferta.price) }}</h4>                  
-                  <span class="strike-text">{{ "${:,.2f}".format(oferta.antes.price) }} </span>
-              </div>              
+              </div>
+              <div class="d-flex flex-row align-items-center">
+                <span class="strike-text">{{ "${:,.2f}".format(oferta.antes.price) }}</span>
+            </div>
               <h6 class="text-success">Dif: {{ "${:,.2f}".format(oferta.diff) }}</h6>
               <div class="d-flex flex-column mt-4">
-                <a class="btn btn-primary" href="{{ data.url_base + oferta.link }}" role="button" target="_blank" rel="noopener noreferrer">Ver en Bercomat</a>                           
                 
+                <a class="btn btn-primary btn-sm mt-1" href="{{ url_for('product', id=oferta.id) }}" role="button" target="_blank" rel="noopener noreferrer">Historial</a>                   
+                            
+               <a class="btn btn-primary btn-sm mt-1" href="{{ data.url_base + oferta.link }}" role="button" target="_blank" rel="noopener noreferrer">Ver en Bercomat</a>                    
             </div>
           </div>
       </div>  

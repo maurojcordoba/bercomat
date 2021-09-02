@@ -1,4 +1,3 @@
-import sys
 from pymongo import MongoClient
 
 
@@ -52,3 +51,11 @@ query = [
 ]
 
 result = db.productos_hoy.aggregate(query)
+
+# Genera Historial
+lista = []
+for oferta in db.productos_oferta.find({},{"_id": 0}):
+    lista.append(oferta)
+
+if lista:
+        db.producto_oferta_hist.insert_many(lista)
