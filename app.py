@@ -26,7 +26,17 @@ def home():
 def product(id):
     try:
         cant_dias = 15
-        producto = mongo.db.productos.find_one({"id": id})
+
+        # Busco ultima fecha cargada
+        producto_cur = mongo.db.productos.find({},{"created":1}).sort("created",-1).limit(1)
+        for p in producto_cur:
+            fec_ult_proc = p["created"]        
+        
+        # Muestro el ultimo producto cargado
+        producto_cur = mongo.db.productos.find({"id": id, "created": {"$eq":fec_ult_proc}}).sort("created",-1).limit(1)
+        for pp in producto_cur:
+            producto = pp
+
         historial = mongo.db.productos.find({"id":id},{"price":1, "created":1}).sort("created", -1).limit(cant_dias)
 
         data_chart = []

@@ -13,7 +13,7 @@ db = client['bercomat']
 col_productos = db['productos']
 
 # Abro archivo de urls
-f = open("src/data.txt", "rt")
+f = open("data.txt", "rt")
 lista_urls = f.readlines()
 f.close()
 
