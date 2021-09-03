@@ -6,7 +6,8 @@ import time
 import random
 from datetime import date,datetime
 
-MONGO_URI = 'mongodb://localhost'
+MONGO_URI = 'mongodb+srv://usrBercomat:EYcDusQq8pKLhBKX@cluster0.2ea9d.mongodb.net/bercomat?retryWrites=true&w=majority'
+
 client = MongoClient(MONGO_URI)
 db = client['bercomat']
 col_productos = db['productos']

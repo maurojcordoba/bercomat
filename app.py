@@ -3,7 +3,8 @@ from flask_pymongo import PyMongo
 import pymongo
 
 app = Flask(__name__)
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/bercomat'
+app.config['MONGO_URI'] = 'mongodb+srv://usrBercomat:EYcDusQq8pKLhBKX@cluster0.2ea9d.mongodb.net/bercomat?retryWrites=true&w=majority'
+
 mongo = PyMongo(app)
 
 url_base = "https://www.familiabercomat.com"
