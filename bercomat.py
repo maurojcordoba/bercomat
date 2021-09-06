@@ -4,7 +4,7 @@ import requests
 import json
 import time
 import random
-from datetime import datetime
+from datetime import datetime,timedelta
 
 MONGO_URI = 'mongodb+srv://usrBercomat:EYcDusQq8pKLhBKX@cluster0.2ea9d.mongodb.net/bercomat?retryWrites=true&w=majority'
 
@@ -68,7 +68,7 @@ for x in lista_urls:
 
                 lista.append(data)           
             
-            time.sleep(random.uniform(3.0,4.0))
+            time.sleep(random.uniform(1.0,2.0))
     except Exception:
         print("Error en pagina {0}! Continua con la siguiente.".format(url))
         pass
@@ -78,14 +78,18 @@ for x in lista_urls:
         col_productos.insert_many(lista)
 
 # Ofertas
-fechas = []
-for fecha in db.productos.distinct("created"):
-    fechas.append(fecha)    
 
+fechas = db.productos.distinct("created")
 fechas.sort(reverse=True)
-
 ult_proceso = fechas[0]
-pen_proceso = fechas[1]
+
+
+today = datetime.today().replace(hour=0,minute=0,second=0)
+yesterday = today - timedelta(days=1)
+
+fechas =  db.productos.distinct("created", {"created": {"$lt": yesterday}})
+fechas.sort(reverse=True)
+pen_proceso = fechas[0]
 
 print(ult_proceso,pen_proceso)
 
