@@ -1,7 +1,7 @@
 from pymongo import MongoClient
+import os
 
-
-MONGO_URI = 'mongodb+srv://usrBercomat:EYcDusQq8pKLhBKX@cluster0.2ea9d.mongodb.net/bercomat?retryWrites=true&w=majority'
+MONGO_URI = os.getenv('MONGO_URI')
 
 client = MongoClient(MONGO_URI)
 db = client.bercomat
