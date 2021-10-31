@@ -9,7 +9,7 @@ import os
 
 
 MONGO_URI = os.getenv('MONGO_URI')
-def process():
+def procesar():
     client = MongoClient(MONGO_URI)
     db = client['bercomat']
     col_productos = db['productos']
