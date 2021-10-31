@@ -1,6 +1,6 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-import bercomat
+import bercomat, ofertas
 
 sched = BlockingScheduler()
 
@@ -12,10 +12,16 @@ def timed_job():
 
 def bercomat_job():
     print('Inicia bercomat')
-    bercomat.process()
+    bercomat.procesar()
     print('Finaliza bercomat')
 
-sched.add_job(bercomat_job, trigger='cron', hour=15, minute=55)
+def ofertas_job():
+    print('Inicia ofertas')
+    ofertas.procesar()
+    print('Finaliza ofertas')
+
+sched.add_job(bercomat_job, trigger='cron', hour=15, minute=57)
+sched.add_job(ofertas_job, trigger='cron', hour=16, minute=55)
 
 print(sched.print_jobs())
 
